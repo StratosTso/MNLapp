@@ -6,7 +6,7 @@
 ```
 sudo npm install express-generator -g
 ```
-- start project in folder. Initialize using express
+- start project in folder. Initialise using express
 ```
 express --view=pug leaflet_map
 ```
@@ -15,9 +15,9 @@ express --view=pug leaflet_map
 - npm start for testing purposes
 - the webpage is available at **http://localhost:3000/**
 
-## Back-end preps
-- install MongoDB: https://docs.mongodb.com/v3.2/administration/install-community/
-- test mongodb: open terminal (for MAC users)
+## Back-end preparations
+- install MongoDB as explained in: https://docs.mongodb.com/v3.2/administration/install-community/
+- test mongodb: open terminal (for MAC users) and type the below. You should be able to connect and then get a response.
 ```
 mongo
 > show dbs
@@ -25,12 +25,14 @@ mongo
 - add mongodb & mongoose in package.json
 - run npm install
 - create the config folder in the structure
-- add the connection.js file
-- go to app.js and add the require --> connection
-- run npm start. If you get the message "MongoDB connected" you are allready connected to DB!!!
+- add the connection.js file in order to be able to connect to the DB. In this file:
+  - the connection URL is defined
+  - the error control is configured
+- navigate to app.js and add the "require" of the connection
+- run npm start. If you get the message "MongoDB connected" you are already connected to DB!!!
 
-## Data model preps
-- create folder models
+## Data model preparations
+- in the main folder create a folder named models
 - create the model of the data you are going to use
 
 ## Add data to the database
@@ -49,45 +51,51 @@ mongoimport --host localhost:27017 --db myDB  --type JSON --file spoorwagenstati
   - the connection has to point exactly were the data are saved
 - in any case, we will get the error in the server console if something is incorrect
 
-## Middleware preps
-index.js
+## Middleware preparations
+### index.js
 - open the routes/index.js file
-- add the require of the model just created
+- add the "require" of the model just created
 - add the router GET call
 
-layout.jade
+### layout.pug
 - open the views/layout.pug file
 - add the jquerry script on the head section
 
-index.jade
+### index.pug
 - in order to be able to add our JS content add the script(type='text/javascript').
-- add the getJSON function. This will do the followings:
+- add the getJSON function.
+```
+$.getJSON('/maplayers', function (data) {
+  console.log(data);
+});
+```
+This will do the followings:
   - call the /maplayers which is part of the GET method
   - convert the data using JQuery / Ajax
   - print the data to the browser's log
 - If everything goes as planned you should have the getJSON on the log of the browser
 
 ## Front end configuration
-style.css
+### style.css
 - add the html,body, #map
 - copy the font property into the #map
 - delete the single body style
 
-leaflet.js
+### leaflet.js
 - navigate to node_modules/leaflet/dist and copy the leaflet.js
 - navigate to public/javascript and paste the file
-- open the layout.jade and add the script source in the head
+- open the layout.pug and add the script source in the head
 
-leaflet.css
+### leaflet.css
 - navigate to node_modules/leaflet/dist and copy the leaflet.css
 - navigate to public/stylesheets and paste the file
-- open the layout.jade and add the link source in the head
+- open the layout.pug and add the link source in the head
 
-images
+### images
 - navigate to node_modules/leaflet/dist and copy the images folder
 - navigate to public/stylesheets and paste the file
 
-index.jade
+### index.pug
 - since we want to view just the map remove the h1 and the p lines
 - add the #map before defining the script
 - define the map component and add the basemap
@@ -99,7 +107,7 @@ osm.addTo(map);
 - run npm start in order to see the map for the first time!
 
 ## Map configuration
-- Initialize the station layer
+- Initialise the station layer
 ```
 var StationsLayer = L.geoJson(null, {});
 ```
